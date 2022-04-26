@@ -1,0 +1,6 @@
+.DS_Store
+.prettierignore
+.codesandbox
+.cache
+dist
+node_modules

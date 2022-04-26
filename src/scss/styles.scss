@@ -1,0 +1,66 @@
+@use "./variables.scss";
+
+body {
+  font-family: sans-serif;
+  background-color: whitesmoke;
+}
+
+.hero{
+  background-image: url("../images/frame-harirak-Ei_lQ6kTwiI-unsplash.jpg");
+  background-size: cover;
+  background-position-x: -256px;
+  background-position-y: -25px;
+  width: 100%;
+  padding-top: 6rem;
+  padding-bottom: 1rem;
+  color: white;
+
+  .hero__title{
+    font-weight: bold;
+    font-size: 2.25rem;
+    padding-top: 15rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .hero__text{
+  }
+
+  .text--drop-shadow{
+    text-shadow: 3px 3px black;
+
+  }
+
+}
+
+.search{
+  background-color: burlywood;
+  .input-container{
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  
+
+    input{
+      // margin: 0 auto;
+      border-radius: 10px;
+      border: none;
+
+    }
+
+    input[type="button"]{
+      width: 20%;
+      max-width: 100px;
+      padding: 4px 0;
+      margin-left: 5%;
+      // margin-left: 5%;
+    }
+
+    input[type="text"]{
+      width: 70%;
+      max-width: 500px;
+      
+    }
+
+  }
+}
