@@ -8,26 +8,29 @@
   </head>
 
   <body>
-    <header class="hero container  background--blue">
-        <div class="hero__container ">
-          <h1 class="hero__title text--drop-shadow">Welcome to the advice generator. The best place to fulfill your advice needs</h1>
-          <p class="hero__text text--drop-shadow">By Ashton Harvey</p>
-        </div>
+    <header class="hero container background--blue">
+      <div class="hero__container">
+        <h1 class="hero__title text--drop-shadow">
+          Welcome to the advice generator. The best place to fulfill your advice
+          needs
+        </h1>
+        <p class="hero__text text--drop-shadow">By Ashton Harvey</p>
+      </div>
     </header>
     <main class="container">
       <section class="search">
         <p></p>
         <div class="input-container">
-          <input type="text" name="" id="">
-          <input type="button" value="Search" >         
+          <input type="text" name="" id="text-input" />
+          <input type="button" value="Search" id="button-input" />
         </div>
       </section>
       <section id="result-container">
         <p class="result-text">No results found for @#$@%</p>
-        <div id="cards"></div>
+        <div id="card-container"></div>
       </section>
     </main>
-    <footer class="container"></footer> 
+    <footer class="container"></footer>
     <script src="./src/js/index.js"></script>
   </body>
 </html>
