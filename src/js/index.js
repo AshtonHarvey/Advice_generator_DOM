@@ -6,6 +6,9 @@ let textInput = document.getElementById("text-input");
 //store button component
 let buttonInput = document.getElementById("button-input");
 
+// store result counter component
+let resultText = document.getElementById("result-text");
+
 // store advice urls for seperate use
 let stringSearchUrl = `https://api.adviceslip.com/advice/search/`;
 let idSearchUrl = `https://api.adviceslip.com/advice/`;
@@ -17,15 +20,22 @@ let cardContainer = document.getElementById("card-container");
 // store search result info element
 let searchInfo = document.getElementById("result-text");
 
-// listen for button input
-buttonInput.onclick = (input) => {
-  clearCardContainer();
+// listen for button click
+buttonInput.onclick = () => {
   ProcessInput(textInput.value.trim());
+};
+
+// listen for enter press
+textInput.onkeydown = (event) => {
+  //   console.log(event.key);
+  if (event.key === "Enter") {
+    ProcessInput(textInput.value.trim());
+  }
 };
 
 // match data type with proper api url
 function ProcessInput(input) {
-  console.log(input);
+  clearCardContainer();
 
   // if is null
   if (input == "") {
@@ -84,47 +94,62 @@ function fetchAdvice(input = "", url) {
     });
 }
 
-//is the returned adviceObject a list?
-function isSearchObject(adviceObject) {
+//is this search object?
+function isSearchObject(object) {
   // if adviceObject has the total results property then it is a search adviceObject
-  return adviceObject.hasOwnProperty("total_results");
+  return object.hasOwnProperty("total_results");
 }
 
-// is the returned adviceObject an error message?
-function isMessageObject(adviceObject) {
+// is a slip object?
+function isSlipObject(object) {
   // if adviceObject has the type property then it is a message adviceObject
-  return adviceObject.hasOwnProperty("type");
+  return object.hasOwnProperty("slip");
 }
 
-//destructures returned adviceObject and
+// is this a message object?
+function isMessageObject(object) {
+  return object.hasOwnProperty("message");
+}
+
+//destructures returned adviceObject
 function DestructureObject(adviceObject) {
-  //check if we received a search error(message adviceObject)
   if (isMessageObject(adviceObject)) {
-    //   create card with error info
+    // create card with error info
     GenerateCardHtml(adviceObject.message.type, adviceObject.message.text);
-  } else if (!isSearchObject(adviceObject)) {
-    //   create card and add too DOM
+    ClearResultCount();
+  }
+  if (isSlipObject(adviceObject)) {
+    //     //   create card and add too DOM
     GenerateCardHtml(adviceObject.slip.id, adviceObject.slip.advice);
-  } else if (isSearchObject(adviceObject)) {
-    //   itterated through array making cards for each advice
-    console.log(adviceObject);
-    Object.entries(adviceObject.slips).forEach((slip) => {
-      GenerateCardHtml(adviceObject.slip.id, adviceObject.slip.advice);
-      //   object array has changed read console log and adjust accessing data
+    ClearResultCount();
+  }
+
+  if (isSearchObject(adviceObject)) {
+    //  itterated through array making cards for each advice
+    Object.entries(adviceObject.slips).forEach((arrayObject) => {
+      GenerateCardHtml(arrayObject[1].id, arrayObject[1].advice);
+      UpdateResultCount(adviceObject.total_results);
     });
   }
 }
 
 // generates html and inserts advice into DOM
 function GenerateCardHtml(title, text) {
-  console.log(`title ${title} text ${text}`);
-
   cardContainer.innerHTML += `
-      <div className="card">
+      <div class="card">
             <p class"card__title">Advice: ${title}</p>
             <p class"card__text">${text}</p>
-        </div>;
+        </div>
     `;
+}
+// updates result counter
+function UpdateResultCount(results) {
+  resultText.innerHTML = `results found: ${results}`;
+}
+
+// clear result count component
+function ClearResultCount() {
+  resultText.innerHTML = "";
 }
 
 // clear card container
