@@ -137,8 +137,8 @@ function DestructureObject(adviceObject) {
 function GenerateCardHtml(title, text) {
   cardContainer.innerHTML += `
       <div class="card">
-            <p class"card__title">Advice: ${title}</p>
-            <p class"card__text">${text}</p>
+            <p class = "card__title">Advice: ${title}</p>
+            <p class = "card__text">${text}</p>
         </div>
     `;
 }
